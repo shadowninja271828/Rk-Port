@@ -51,7 +51,7 @@ function renderProjects(filter = currentFilter) {
   grid.innerHTML = visibleProjects.map((project) => `
     <article class="project-card">
       <button class="project-image" type="button" data-project-id="${escapeHtml(project.id)}" aria-label="View ${escapeHtml(project.title)}">
-        <img src="${escapeHtml(project.image)}" alt="${escapeHtml(project.title)} project" loading="lazy" />
+        <img src="${escapeHtml(project.image)}" alt="${escapeHtml(project.title)} project" loading="lazy" decoding="async" />
         <span class="project-type">${escapeHtml(project.category)}</span>
         <span class="play-button" aria-hidden="true">${project.video ? "▶" : "↗"}</span>
       </button>
