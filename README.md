@@ -12,7 +12,7 @@ Before deploying, configure Firestore rules to allow writes only to authenticate
 
 ## Add your own work
 
-In the admin page, sign in with an authorized Firebase Email/Password account. Edit your display name, email, phone, location, and bio. Add or edit projects with an online cover image URL and, for video projects, an optional YouTube link or MP4 URL. YouTube watch, short, and youtu.be links open in an embedded player. Use the project filters and select a project on the public page to preview its image or video.
+In the admin page, sign in with an authorized Firebase Email/Password account. Edit your display name, email, phone, location, Instagram username, WhatsApp number, and bio. Instagram and WhatsApp links are shown in the public contact section when valid values are set. Add or edit projects with an online cover image URL and, for video projects, an optional YouTube link or MP4 URL. YouTube watch, short, and youtu.be links open in an embedded player. Use the project filters and select a project on the public page to preview its image or video.
 
 The included project content and contact information are demo placeholders. Replace them with the client's real details, photography, and video links before publishing. The demo video links and portfolio imagery require an internet connection.
 

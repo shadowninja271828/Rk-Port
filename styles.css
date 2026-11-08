@@ -96,7 +96,7 @@ img { display: block; width: 100%; }
 .contact-details > p { margin: 0 0 15px; color: var(--muted); font-size: 12px; }
 .contact-email { display: inline-flex; align-items: center; gap: 14px; padding-bottom: 7px; border-bottom: 1px solid var(--ink); font: 500 clamp(20px, 2.4vw, 30px) var(--display); letter-spacing: -.06em; }
 .contact-email span { color: var(--orange); font: 17px var(--body); }
-.contact-meta { display: grid; grid-template-columns: 1.25fr 1fr .8fr; gap: 15px; margin-top: 48px; }
+.contact-meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 15px; margin-top: 48px; }
 .contact-meta > span { display: flex; flex-direction: column; gap: 9px; font-size: 10px; }
 .meta-label { color: var(--muted); font: 9px var(--mono); letter-spacing: .07em; }
 .contact-meta a:hover { text-decoration: underline; }

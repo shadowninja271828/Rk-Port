@@ -30,6 +30,21 @@ function updateContactLinks(profile) {
   document.querySelectorAll("[data-contact='location']").forEach((element) => {
     element.textContent = profile.location;
   });
+  document.querySelectorAll("[data-contact='instagram']").forEach((element) => {
+    const username = String(profile.instagram ?? "").trim().replace(/^@/, "");
+    const validUsername = /^[A-Za-z0-9._]{1,30}$/.test(username);
+    element.closest("[data-contact-group]").hidden = !validUsername;
+    if (validUsername) {
+      element.href = `https://www.instagram.com/${encodeURIComponent(username)}/`;
+      element.textContent = `@${username} ↗`;
+    }
+  });
+  document.querySelectorAll("[data-contact='whatsapp']").forEach((element) => {
+    const number = String(profile.whatsapp ?? "").replace(/\D/g, "");
+    const validNumber = /^\d{7,15}$/.test(number);
+    element.closest("[data-contact-group]").hidden = !validNumber;
+    if (validNumber) element.href = `https://wa.me/${number}`;
+  });
 }
 
 function escapeHtml(value) {

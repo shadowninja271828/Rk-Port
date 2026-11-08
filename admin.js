@@ -22,6 +22,8 @@ const defaultSite = {
     email: "hello@frameform.studio",
     phone: "+1 (212) 555-0148",
     location: "Brooklyn, NY · Working everywhere",
+    instagram: "",
+    whatsapp: "",
     bio: "I’m a freelance video editor and photographer who loves the small details: the light just before sunset, a cut that lands perfectly, and the honest moments in between. I partner with people and brands to make thoughtful films and images with a point of view.",
   },
   projects: [
