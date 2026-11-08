@@ -1,4 +1,4 @@
-# Rk Editing portfolio
+# Agun portfolio
 
 A responsive portfolio for an independent video editor and photographer, with a separate Firebase-backed content manager.
 
