@@ -24,6 +24,7 @@ const defaultSite = {
     location: "Brooklyn, NY · Working everywhere",
     instagram: "",
     whatsapp: "",
+    heroImage: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1400&q=85",
     aboutEyebrow: "A little about me",
     aboutTitleFirst: "Good stories",
     aboutTitleSecond: "make you",

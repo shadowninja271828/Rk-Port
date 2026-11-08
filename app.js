@@ -25,7 +25,8 @@ function updateContactLinks(profile) {
       element.src = imageUrl;
       element.removeAttribute("srcset");
     }
-    const alt = profile[element.dataset.profileAlt];
+    const altKey = element.dataset.profileAlt;
+    const alt = altKey ? profile[altKey] : null;
     if (alt !== undefined && alt !== null) element.alt = alt;
   });
   document.querySelectorAll("[data-contact='email']").forEach((element) => {
