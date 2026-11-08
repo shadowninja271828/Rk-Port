@@ -24,7 +24,17 @@ const defaultSite = {
     location: "Brooklyn, NY · Working everywhere",
     instagram: "",
     whatsapp: "",
+    aboutEyebrow: "A little about me",
+    aboutTitleFirst: "Good stories",
+    aboutTitleSecond: "make you",
+    aboutTitleAccent: "feel.",
     bio: "I’m a freelance video editor and photographer who loves the small details: the light just before sunset, a cut that lands perfectly, and the honest moments in between. I partner with people and brands to make thoughtful films and images with a point of view.",
+    aboutService1: "Video editing",
+    aboutService2: "Photography",
+    aboutService3: "Creative direction",
+    aboutImage: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=85",
+    aboutImageAlt: "A camera ready for a photo shoot",
+    aboutCaption: "Behind the scenes, always.",
   },
   projects: [
     { id: "after-the-light", title: "After the Light", category: "Film", year: "2025", description: "An intimate portrait of artists finding their way home.", image: "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1200&q=85", video: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" },
@@ -109,7 +119,10 @@ async function loadSite() {
     getDoc(profileRef),
     getDocs(projectsRef),
   ]);
-  site.profile = profileSnapshot.exists() ? profileSnapshot.data() : defaultSite.profile;
+  site.profile = {
+    ...defaultSite.profile,
+    ...(profileSnapshot.exists() ? profileSnapshot.data() : {}),
+  };
   site.projects = projectsSnapshot.docs
     .map((snapshot) => ({ id: snapshot.id, ...snapshot.data() }))
     .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));

@@ -17,7 +17,16 @@ let currentFilter = "All";
 function updateContactLinks(profile) {
   document.querySelectorAll("[data-profile]").forEach((element) => {
     const value = profile[element.dataset.profile];
-    if (value) element.textContent = value;
+    if (value !== undefined && value !== null) element.textContent = value;
+  });
+  document.querySelectorAll("[data-profile-image]").forEach((element) => {
+    const imageUrl = profile[element.dataset.profileImage];
+    if (imageUrl) {
+      element.src = imageUrl;
+      element.removeAttribute("srcset");
+    }
+    const alt = profile[element.dataset.profileAlt];
+    if (alt !== undefined && alt !== null) element.alt = alt;
   });
   document.querySelectorAll("[data-contact='email']").forEach((element) => {
     element.textContent = profile.email;
