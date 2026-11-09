@@ -42,13 +42,9 @@
             <a class="round-link" href="#work" aria-label="Explore selected work"><span>↓</span></a>
           </div>
         </div>
-        <div class="hero-visual">
+        <div class="hero-visual is-loading">
           <img
-            src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1400&q=85"
-            srcset="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=640&q=78 640w, https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=960&q=80 960w, https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1400&q=82 1400w"
-            sizes="(max-width: 600px) 86vw, (max-width: 800px) 46vw, 42vw"
-            alt="Photographer working with a camera in warm evening light"
-            fetchpriority="high"
+            alt="Portfolio hero"
             decoding="async"
             data-profile-image="heroImage"
           />
@@ -72,19 +68,32 @@
           <button class="filter-button" data-filter="Photography" type="button">Photography</button>
           <button class="filter-button" data-filter="Campaign" type="button">Campaign</button>
         </div>
-        <div class="project-grid" id="project-grid" aria-live="polite"></div>
+        <div class="project-grid is-loading" id="project-grid" aria-live="polite" aria-busy="true">
+          <article class="project-card skeleton-card" aria-hidden="true">
+            <div class="project-image skeleton-block"></div>
+            <div class="project-info"><div><div class="skeleton-line skeleton-title"></div><div class="skeleton-line skeleton-description"></div></div></div>
+          </article>
+          <article class="project-card skeleton-card" aria-hidden="true">
+            <div class="project-image skeleton-block"></div>
+            <div class="project-info"><div><div class="skeleton-line skeleton-title"></div><div class="skeleton-line skeleton-description"></div></div></div>
+          </article>
+          <article class="project-card skeleton-card" aria-hidden="true">
+            <div class="project-image skeleton-block"></div>
+            <div class="project-info"><div><div class="skeleton-line skeleton-title"></div><div class="skeleton-line skeleton-description"></div></div></div>
+          </article>
+          <article class="project-card skeleton-card" aria-hidden="true">
+            <div class="project-image skeleton-block"></div>
+            <div class="project-info"><div><div class="skeleton-line skeleton-title"></div><div class="skeleton-line skeleton-description"></div></div></div>
+          </article>
+        </div>
         <p class="work-footer">Good work happens when we make it together. <a href="#contact">Have a story? Let’s talk ↗</a></p>
       </section>
 
       <section class="about-section" id="about">
         <div class="about-inner page-shell">
-          <div class="about-image-wrap">
+          <div class="about-image-wrap is-loading">
             <img
-              src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=85"
-              srcset="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=480&q=78 480w, https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=760&q=80 760w, https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=82 1000w"
-              sizes="(max-width: 600px) 86vw, (max-width: 800px) 38vw, 34vw"
-              alt="A camera ready for a photo shoot"
-              loading="lazy"
+              alt="About profile"
               decoding="async"
               data-profile-image="aboutImage"
               data-profile-alt="aboutImageAlt"
@@ -122,7 +131,7 @@
     </main>
 
     <footer class="site-footer page-shell">
-      <a class="wordmark" href="#home">RK <span>EDITING</span></a>
+      <a class="wordmark" href="#home">AGUN</a>
       <span>Made with intention. © <span id="current-year"></span></span>
       <a href="#home">Back to top ↑</a>
       <a class="admin-shortcut" href="admin.html">Studio login</a>

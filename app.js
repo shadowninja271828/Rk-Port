@@ -12,6 +12,7 @@ const profileRef = doc(db, "settings", "profile");
 const projectsRef = collection(db, "projects");
 const projectsQuery = query(projectsRef, limit(100));
 let projects = [];
+let projectsLoaded = false;
 let currentFilter = "All";
 
 function updateContactLinks(profile) {
@@ -22,8 +23,9 @@ function updateContactLinks(profile) {
   document.querySelectorAll("[data-profile-image]").forEach((element) => {
     const imageUrl = profile[element.dataset.profileImage];
     if (imageUrl) {
-      element.src = imageUrl;
-      element.removeAttribute("srcset");
+      loadProfileImage(element, imageUrl);
+    } else {
+      element.parentElement.classList.remove("is-loading");
     }
     const altKey = element.dataset.profileAlt;
     const alt = altKey ? profile[altKey] : null;
@@ -57,6 +59,41 @@ function updateContactLinks(profile) {
   });
 }
 
+function loadProfileImage(image, imageUrl) {
+  const container = image.parentElement;
+  const preload = new Image();
+  preload.onload = () => {
+    image.src = imageUrl;
+    container.classList.remove("is-loading", "is-image-error");
+    image.classList.add("is-loaded");
+  };
+  preload.onerror = () => {
+    container.classList.remove("is-loading");
+    container.classList.add("is-image-error");
+    console.error(`Could not load profile image "${image.dataset.profileImage}" from its configured URL.`);
+  };
+  preload.src = imageUrl;
+}
+
+function trackProjectImage(image) {
+  const container = image.closest(".project-image");
+  const loaded = () => {
+    container.classList.remove("is-loading", "is-image-error");
+    image.classList.add("is-loaded");
+  };
+  const failed = () => {
+    container.classList.remove("is-loading");
+    container.classList.add("is-image-error");
+    console.error(`Could not load project image for "${image.alt}".`);
+  };
+  image.addEventListener("load", loaded, { once: true });
+  image.addEventListener("error", failed, { once: true });
+  if (image.complete) {
+    if (image.naturalWidth > 0) loaded();
+    else failed();
+  }
+}
+
 function escapeHtml(value) {
   return String(value ?? "").replace(/[&<>"']/g, (character) => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
@@ -66,16 +103,18 @@ function escapeHtml(value) {
 function renderProjects(filter = currentFilter) {
   const grid = document.querySelector("#project-grid");
   if (!grid) return;
+  if (!projectsLoaded) return;
   const visibleProjects = filter === "All"
     ? projects
     : projects.filter((project) => project.category === filter);
   if (!visibleProjects.length) {
     grid.innerHTML = '<p class="empty-work">No projects in this collection just yet.</p>';
+    grid.setAttribute("aria-busy", "false");
     return;
   }
   grid.innerHTML = visibleProjects.map((project) => `
     <article class="project-card">
-      <button class="project-image" type="button" data-project-id="${escapeHtml(project.id)}" aria-label="View ${escapeHtml(project.title)}">
+      <button class="project-image is-loading" type="button" data-project-id="${escapeHtml(project.id)}" aria-label="View ${escapeHtml(project.title)}">
         <img src="${escapeHtml(project.image)}" alt="${escapeHtml(project.title)} project" loading="lazy" decoding="async" />
         <span class="project-type">${escapeHtml(project.category)}</span>
         <span class="play-button" aria-hidden="true">${project.video ? "▶" : "↗"}</span>
@@ -86,11 +125,16 @@ function renderProjects(filter = currentFilter) {
       </div>
     </article>
   `).join("");
+  grid.setAttribute("aria-busy", "false");
+  grid.querySelectorAll(".project-image img").forEach(trackProjectImage);
 }
 
 function renderLoadError() {
   const grid = document.querySelector("#project-grid");
-  if (grid) grid.innerHTML = '<p class="empty-work">Portfolio content could not be loaded. Please try again later.</p>';
+  if (grid) {
+    grid.innerHTML = '<p class="empty-work">Portfolio content could not be loaded. Please try again later.</p>';
+    grid.setAttribute("aria-busy", "false");
+  }
 }
 
 async function loadProfile() {
@@ -103,6 +147,7 @@ function listenForProjects() {
     projects = projectsSnapshot.docs
       .map((snapshot) => ({ id: snapshot.id, ...snapshot.data() }))
       .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+    projectsLoaded = true;
     const count = String(projects.length).padStart(2, "0");
     const countLabel = document.querySelector("#work-count");
     const countSup = document.querySelector("#work-count-sup");
